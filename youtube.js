@@ -25,7 +25,7 @@ function telecharger_video(url, array, actuel, max){
 		 .on('finish', function(){
 			let msg = title.concat('', ': OK.');
 		 	console.log(msg);
-			if(max > 0 && actuel < max){
+			if(max > 0 && actuel < max-1){
 		 		telecharger_video(array[actuel+1], array, actuel+1, max);
 			}
 		 })
