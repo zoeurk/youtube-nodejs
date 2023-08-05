@@ -25,7 +25,7 @@ function telecharger_video(url, array, actuel, max){
 		 .on('finish', function(){
 			let msg = title.concat('', ': OK.');
 		 	console.log(msg);
-			if(max > 0 && actuel < max-1){
+			if(max > 0 && actuel < max){
 		 		telecharger_video(array[actuel+1], array, actuel+1, max);
 			}
 		 })
@@ -56,7 +56,7 @@ const main = async function(url){
 	console.log("fichier:%s [id = %s, url = %s]", myjson.items[x].title, myjson.items[x].id);
 	//console.log(ret);
  }
- telecharger_video(video[0],video, 0, video.length);
+ telecharger_video(video[0],video, 0, video.length-1);
 }
 let str = argv1.toString();
 if(str.includes("playlist") === true){
