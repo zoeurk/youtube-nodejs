@@ -4,21 +4,9 @@ const ytpl = require('ytpl');
 const util = require('util');
 var ProgressBar = require('progress');
 var argv1 = process.argv.slice(2);
-var global = 1;
-function attendre(){
-	if(global == 0){
-		setInterval(attendre()
-			//console.log(global);
-		,1000);
-	}
-	console.log(global);
-	global = 0;
-}
 function telecharger_video(url, array, actuel, max){
-	//var url_ = url.toString();
        	url_ = url.replace(/\&.*$/,"");
 	var id = url_.replace(/^.*=/i,"");
-	//console.log(id);
 	try{
 		ytdl.getInfo(id).then(info => {
 			var title = info.videoDetails.title;
@@ -46,16 +34,13 @@ function telecharger_video(url, array, actuel, max){
 	}catch{
 		console.log(url_);
 	}
-	return 0;
 }
 const main = async function(url){
   let saveString;
   video = new Array();
-  // Save playlist
   const url_ = url.toString();
   const id = url_.replace(/^.*=/i,"");
   const search = await ytpl(id, { limit: 15 });
-  //return 0;
   saveString = util.inspect(search, { depth: Infinity });
   var string = saveString.replace(/:\n/g,':');
   string = string.replace(/(\{|\{) /g, '$1\n');
@@ -64,19 +49,18 @@ const main = async function(url){
   string = string.replace(/"$/,"");
   string = string.replace(/'/g,'"');
   var myjson = JSON.parse(string);
-  //var video;
+  console.log("Playlist:");
   for(let x in myjson.items){
 	 video[x] = myjson.items[x].url;
        	//video = myjson.items[x].url;
-	//console.log("fichier:%s [id = %s, url = %s]", myjson.items[x].title, myjson.items[x].id, video);
+	console.log("fichier:%s [id = %s]", myjson.items[x].title, myjson.items[x].id);
 	//console.log(ret);
  }
- telecharger_video(video[0],video, 0, video.length);
+ telecharger_video(video[0],video, 0, video.length-1);
 }
 let str = argv1.toString();
 if(str.includes("playlist") === true){
 	main(str);
 }else{
 	telecharger_video(str, 0, 0, -1);
-	console.log("OK");
 }
