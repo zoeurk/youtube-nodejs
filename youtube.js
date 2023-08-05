@@ -53,7 +53,7 @@ const main = async function(url){
   for(let x in myjson.items){
 	 video[x] = myjson.items[x].url;
        	//video = myjson.items[x].url;
-	console.log("fichier:%s [id = %s, url = %s]", myjson.items[x].title, myjson.items[x].id);
+	console.log("fichier:%s [id = %s]", myjson.items[x].title, myjson.items[x].id);
 	//console.log(ret);
  }
  telecharger_video(video[0],video, 0, video.length-1);
