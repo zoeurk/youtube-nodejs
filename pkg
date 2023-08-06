@@ -1,0 +1,58 @@
+Lecture des listes de paquets…
+Construction de l'arbre des dépendances…
+Lecture des informations d'état…
+nodejs est déjà la version la plus récente (10.19.0~dfsg-3ubuntu1).
+nodejs passé en « installé manuellement ».
+Calcul de la mise à jour…
+Les paquets suivants ont été installés automatiquement et ne sont plus nécessaires :
+  gir1.2-goa-1.0 libfwupdplugin1 libxmlb1
+Veuillez utiliser « apt autoremove » pour les supprimer.
+Les NOUVEAUX paquets suivants seront installés :
+  libfwupdplugin5 libxmlb2 linux-objects-nvidia-470-5.15.0-78-generic
+  linux-signatures-nvidia-5.15.0-78-generic python3-packaging
+  python3-pyparsing ubuntu-advantage-desktop-daemon
+Les paquets suivants ont été conservés :
+  linux-modules-nvidia-470-generic-hwe-20.04 nvidia-kernel-common-470
+  virtualbox-dkms
+Les paquets suivants seront mis à jour :
+  alsa-ucm-conf apparmor apport apport-gtk apt apt-utils base-files bolt
+  bsdutils command-not-found deja-dup distro-info distro-info-data fdisk
+  fonts-ubuntu fwupd fwupd-signed gdb gdbserver gir1.2-gtk-3.0 gir1.2-mutter-6
+  gir1.2-nm-1.0 gir1.2-notify-0.7 gir1.2-udisks-2.0 gnome-control-center
+  gnome-control-center-data gnome-control-center-faces
+  gnome-shell-extension-desktop-icons grub-common grub-efi-amd64-bin
+  grub-efi-amd64-signed grub-pc grub-pc-bin grub2-common gtk-update-icon-cache
+  iio-sensor-proxy initramfs-tools initramfs-tools-bin initramfs-tools-core
+  iptables isc-dhcp-client isc-dhcp-common kmod language-pack-en
+  language-pack-en-base language-pack-fr language-pack-fr-base
+  language-pack-gnome-en language-pack-gnome-en-base language-pack-gnome-fr
+  language-pack-gnome-fr-base libapparmor1 libapt-pkg6.0 libasound2
+  libasound2-data libatopology2 libblkid1 libc-bin libc-dev-bin libc6
+  libc6:i386 libc6-dbg libc6-dev libfdisk1 libfprint-2-2 libfprint-2-tod1
+  libfwupd2 libgpgme11 libgpgmepp6 libgtk-3-0 libgtk-3-bin libgtk-3-common
+  libip4tc2 libip6tc2 libjcat1 libkeyutils1 libkmod2 libmbim-glib4
+  libmbim-proxy libmm-glib0 libmount1 libmutter-6-0 libmysqlclient21
+  libnetplan0 libnl-3-200 libnl-genl-3-200 libnl-route-3-200 libnm0
+  libnotify-bin libnotify4 libnss-systemd libpam-systemd libprocps8
+  libpulse-mainloop-glib0 libpulse0 libpulsedsp libqmi-glib5 libqmi-proxy
+  libsensors-config libsensors5 libsmartcols1 libsnmp-base libsnmp35
+  libsystemd0 libtss2-esys0 libudev1 libudisks2-0 libunwind8 libuuid1
+  libxtables12 linux-base linux-firmware locales modemmanager mokutil mount
+  mutter mutter-common netplan.io network-manager
+  network-manager-config-connectivity-ubuntu procps pulseaudio
+  pulseaudio-module-bluetooth pulseaudio-utils python-apt-common
+  python3-apport python3-apt python3-commandnotfound python3-debian
+  python3-distro-info python3-distupgrade python3-gpg python3-problem-report
+  python3-software-properties python3-tz python3-update-manager rfkill
+  sbsigntool shim-signed software-properties-common software-properties-gtk
+  systemd systemd-sysv systemd-timesyncd tcpdump thermald torbrowser-launcher
+  tracker-extract tracker-miner-fs tzdata ubuntu-advantage-tools
+  ubuntu-drivers-common ubuntu-release-upgrader-core
+  ubuntu-release-upgrader-gtk udev udisks2 ufw unattended-upgrades
+  update-manager update-manager-core update-notifier update-notifier-common
+  util-linux uuid-runtime wget xdg-desktop-portal xdg-desktop-portal-gtk
+  xserver-xorg-video-amdgpu
+169 mis à jour, 7 nouvellement installés, 0 à enlever et 3 non mis à jour.
+Il est nécessaire de prendre 265 Mo dans les archives.
+Après cette opération, 243 Mo d'espace disque supplémentaires seront utilisés.
+Souhaitez-vous continuer ? [O/n] 
