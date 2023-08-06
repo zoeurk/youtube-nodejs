@@ -3,10 +3,10 @@ const fs = require('fs');
 const ytpl = require('ytpl');
 const util = require('util');
 const readline = require('readline');
+const args = require('yargs').argv;
 var filter_opt = 'audioandvideo';
 var quality_opt = '136';
-var chunk = 0;
-var argv1 = process.argv.slice(2);
+//var chunk = 0;
 function telecharger_video(url, array, actuel, max){
        	url_ = url.replace(/\&.*$/,"");
 	var id = url_.replace(/^.*=/i,"");
@@ -19,7 +19,7 @@ function telecharger_video(url, array, actuel, max){
 			var title = info.videoDetails.title;
 			var video = title.concat('',".mp4");
 			var labarre = title.concat('' , ': [:bar] :percent :etas');
-			const video_ = ytdl(url_, {djChunkSize : chunk}, {filter: filter_opt}, {quality: quality_opt})
+			const video_ = ytdl(url_, {filter: filter_opt}, {quality: quality_opt}) //, {djChunkSize : 10}
 			video_.once('response', () => {
 				starttime = Date.now();
 			 });
@@ -69,6 +69,19 @@ const main = async function(url){
  }
  telecharger_video(video[0],video, 0, video.length-1);
 }
+if(args.quality){
+	quality_opt = args.quality;
+}
+if(args.filter){
+	filter_opt = args.filter;
+}
+if(args.url){
+	var argv1 = args.url;
+}else{
+	console.log("usage invalide.\nusage: nodejs ./youtube_dl-node.js [--quality=quality, --filter=filter (voir https://github.com/fent/node-ytdl-core/tree/master)] --url=url")
+	process.exit(255);
+}
+//console.log("Arguments: quality:%s, filter:%s, url:%s", quality_opt, filter_opt, argv1);
 let str = argv1.toString();
 if(str.includes("playlist") === true){
 	main(str);
