@@ -2,7 +2,10 @@ const ytdl = require('ytdl-core');
 const fs = require('fs');
 const ytpl = require('ytpl');
 const util = require('util');
-var ProgressBar = require('progress');
+const readline = require('readline');
+var filter_opt = 'audioandvideo';
+var quality_opt = '136';
+var chunking = 10000;
 var argv1 = process.argv.slice(2);
 function telecharger_video(url, array, actuel, max){
        	url_ = url.replace(/\&.*$/,"");
@@ -12,25 +15,31 @@ function telecharger_video(url, array, actuel, max){
 			var title = info.videoDetails.title;
 			var video = title.concat('',".mp4");
 			var labarre = title.concat('' , ': [:bar] :percent :etas');
-			ytdl(url_, { filter: 'audioandvideo' })
-			 .on('response', function(res){
-				bar = new ProgressBar(labarre, {
-				complete : String.fromCharCode(0x2588),
-				total    : parseInt(res.headers['content-length'], 10)	
-		  	})
+			const video_ = ytdl(url_, {filter: filter_opt}, {quality: quality_opt})
+			video_.once('response', () => {
+				starttime = Date.now();
+			 });
+			video_.on('progress', (chunkLength, downloaded, total) => {
+				const percent = downloaded / total;
+				const downloadedMinutes = (Date.now() - starttime) / 1000 / 60;
+				const estimatedDownloadTime = (downloadedMinutes / percent) - downloadedMinutes;
+				readline.cursorTo(process.stdout, 0);
+				process.stdout.write(`${title}: ${(percent * 100).toFixed(2)}% downloaded `);
+				process.stdout.write(`(${(downloaded / 1024 / 1024).toFixed(2)}MB of ${(total / 1024 / 1024).toFixed(2)}MB)\n`);
+				process.stdout.write(`running for: ${downloadedMinutes.toFixed(2)}minutes`);
+				process.stdout.write(`, estimated time left: ${estimatedDownloadTime.toFixed(2)}minutes `);
+				readline.moveCursor(process.stdout, 0, -1);
+			  });
+			 video_.on('end', () => {
+				process.stdout.write('\n\n');
+				let msg = title.concat('', ': OK.');
+		 		console.log(msg);
+				if(max > 0 && actuel < max){
+		 			telecharger_video(array[actuel+1], array, actuel+1, max);
+				}
+			  });
+			 video_.pipe(fs.createWriteStream(video))
 		 })
-		 .on('data', function(data){
-			 bar.tick(data.length);
-		 })
-		 .on('finish', function(){
-			let msg = title.concat('', ': OK.');
-		 	console.log(msg);
-			if(max > 0 && actuel < max){
-		 		telecharger_video(array[actuel+1], array, actuel+1, max);
-			}
-		 })
-		 .pipe(fs.createWriteStream(video))
-		});
 	}catch{
 		console.log(url_);
 	}
@@ -52,9 +61,7 @@ const main = async function(url){
   console.log("Playlist:");
   for(let x in myjson.items){
 	 video[x] = myjson.items[x].url;
-       	//video = myjson.items[x].url;
 	console.log("fichier:%s [id = %s]", myjson.items[x].title, myjson.items[x].id);
-	//console.log(ret);
  }
  telecharger_video(video[0],video, 0, video.length-1);
 }
