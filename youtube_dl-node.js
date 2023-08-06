@@ -15,7 +15,7 @@ function telecharger_video(url, array, actuel, max){
 			var title = info.videoDetails.title;
 			var video = title.concat('',".mp4");
 			var labarre = title.concat('' , ': [:bar] :percent :etas');
-			const video_ = ytdl(url_, {filter: filter_opt}, {quality: quality_opt})
+			const video_ = ytdl(url_, {djChunkSize : 0}, {filter: filter_opt}, {quality: quality_opt})
 			video_.once('response', () => {
 				starttime = Date.now();
 			 });
