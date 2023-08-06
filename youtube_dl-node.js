@@ -16,6 +16,7 @@ function telecharger_video(url, array, actuel, max){
 	}
 	try{
 		ytdl.getInfo(id).then(info => {
+			var titre;
 			var title = info.videoDetails.title;
 			var video = title.concat('',".mp4");
 			var labarre = title.concat('' , ': [:bar] :percent :etas');
@@ -28,7 +29,12 @@ function telecharger_video(url, array, actuel, max){
 				const downloadedMinutes = (Date.now() - starttime) / 1000 / 60;
 				const estimatedDownloadTime = (downloadedMinutes / percent) - downloadedMinutes;
 				readline.cursorTo(process.stdout, 0);
-				process.stdout.write(`${title}: ${(percent * 100).toFixed(2)}% downloaded `);
+				if(title.length >25){
+					titre = title.replace(/(^.{23}).*$/, "$1...");
+				}else{
+					titre = title;
+				}
+				process.stdout.write(`${titre}: ${(percent * 100).toFixed(2)}% downloaded `);
 				process.stdout.write(`(${(downloaded / 1024 / 1024).toFixed(2)}MB of ${(total / 1024 / 1024).toFixed(2)}MB)\n`);
 				process.stdout.write(`running for: ${downloadedMinutes.toFixed(2)}minutes`);
 				process.stdout.write(`, estimated time left: ${estimatedDownloadTime.toFixed(2)}minutes `);
