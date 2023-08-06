@@ -29,8 +29,8 @@ function telecharger_video(url, array, actuel, max){
 				const downloadedMinutes = (Date.now() - starttime) / 1000 / 60;
 				const estimatedDownloadTime = (downloadedMinutes / percent) - downloadedMinutes;
 				readline.cursorTo(process.stdout, 0);
-				if(title.length >25){
-					titre = title.replace(/(^.{23}).*$/, "$1...");
+				if(title.length > 32){
+					titre = title.replace(/(^.{29}).*$/, "$1...");
 				}else{
 					titre = title;
 				}
