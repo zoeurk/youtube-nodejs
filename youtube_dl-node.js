@@ -5,17 +5,21 @@ const util = require('util');
 const readline = require('readline');
 var filter_opt = 'audioandvideo';
 var quality_opt = '136';
-var chunking = 10000;
+var chunk = 0;
 var argv1 = process.argv.slice(2);
 function telecharger_video(url, array, actuel, max){
        	url_ = url.replace(/\&.*$/,"");
 	var id = url_.replace(/^.*=/i,"");
+	if(ytdl.validateURL(url_) === false){
+		console.log("url invalid: %s", url_);
+		process.exit(255);
+	}
 	try{
 		ytdl.getInfo(id).then(info => {
 			var title = info.videoDetails.title;
 			var video = title.concat('',".mp4");
 			var labarre = title.concat('' , ': [:bar] :percent :etas');
-			const video_ = ytdl(url_, {djChunkSize : 0}, {filter: filter_opt}, {quality: quality_opt})
+			const video_ = ytdl(url_, {djChunkSize : chunk}, {filter: filter_opt}, {quality: quality_opt})
 			video_.once('response', () => {
 				starttime = Date.now();
 			 });
