@@ -1,5 +1,5 @@
 # youtube-nodejs
-outil pour télécharger des videos depuis youtube. 
+outil pour télécharger des videos depuis youtube.  
 npm install ytdl-core  
 npm install ytdl-core-discord  
 npm install ytdl-core  
