@@ -2,7 +2,6 @@
 outil pour télécharger des videos depuis youtube.  
 npm install ytdl-core  
 npm install ytdl-core-discord  
-npm install ytdl-core  
 npm install ytpl  
 npm install yargs  
 npm install readline   
