@@ -4,7 +4,7 @@ npm install ytdl-core
 npm install ytdl-core-discord  
 npm install ytdl-core  
 npm install ytpl  
-npm install yargs 
+npm install yargs  
 npm install readline   
 npm install fs  
 nmp install util  
