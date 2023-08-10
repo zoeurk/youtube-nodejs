@@ -63,19 +63,17 @@ const main = async function(url){
   //try{
   	const search = await ytpl(id, { limit: 15 });
   	saveString = util.inspect(search, { depth: Infinity });
-  	//var string = saveString.replace(/:\n/g,':');
-    var string = saveString.replace(/(:)\n/g,'$1');
- 	   string = string.replace(/(\{|\{|,) *\n/g, '$1\n');
- 	   string = string.replace(/([a-zA-Z0-9]*) *:[ \t]+(.*[\,\n,\},\]])/g,'"$1":$2');
- 	   string = string.replace(/: *'(.*)' *(\}|\]|,| *) *\n/g,':"$1"$2\n');
- 	   string = string.replace(/^"/,"");
- 	   string = string.replace(/"$/,"");
- 	   string = string.replace(/(^ *)'/g,'$1"');
- 	   string = string.replace(/(:\{) *'(.*)' *(,|\}|\])/g,'$1"$2"$3');
- 	   string = string.replace(/(:\[) *'(.*)' *(,|\}|\])/g,'$1"$2"$3');
- 	   string = string.replace(/(:) *'(.*)' *(,|\}|\])/g,'$1"$2"$3');
-  	var myjson = JSON.parse(string);
-	console.log(myjson);
+  	var meta = saveString;
+	meta = meta.replace(/: *(\[|\{)/g,':\n$1\n');
+	meta = meta.replace(/(.*):(.*), *(.*):(.*)/g, "$1:$2,\n$3:$4");
+   	meta = meta.replace(/\n */g, '\n');
+	meta = meta.replace(/\n[ \t]*\n/g, "\n");
+	meta = meta.replace(/\n([^\{\[\]\}:]*):/g, '\n"$1":');
+	meta = meta.replace(/^/g, "\n");
+	meta = meta.replace(/("[^:"]*":) */g, '$1\n');
+	meta = meta.replace(/\n'/g,'\n"');
+	meta = meta.replace(/'(,|\n|\]|\})/g, '"$1');
+  	var myjson = JSON.parse(meta);
   	console.log("Playlist:");
   	for(let x in myjson.items){
 		video[x] = myjson.items[x].url;
