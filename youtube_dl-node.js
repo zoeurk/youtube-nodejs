@@ -60,26 +60,32 @@ const main = async function(url){
   video = new Array();
   const url_ = url.toString();
   const id = url_.replace(/^.*=/i,"");
-  try{
+  //try{
   	const search = await ytpl(id, { limit: 15 });
   	saveString = util.inspect(search, { depth: Infinity });
-  	var string = saveString.replace(/:\n/g,':');
-  	string = string.replace(/(\{|\{|,) /g, '$1\n');
-  	string = string.replace(/([a-zA-Z0-9]*):[ \t]+(.*[\,\n,\},\]])/g,'"$1":$2');
-  	string = string.replace(/^"/,"");
-  	string = string.replace(/"$/,"");
-  	string = string.replace(/'/g,'"');
+  	//var string = saveString.replace(/:\n/g,':');
+    var string = saveString.replace(/(:)\n/g,'$1');
+ 	   string = string.replace(/(\{|\{|,) *\n/g, '$1\n');
+ 	   string = string.replace(/([a-zA-Z0-9]*) *:[ \t]+(.*[\,\n,\},\]])/g,'"$1":$2');
+ 	   string = string.replace(/: *'(.*)' *(\}|\]|,| *) *\n/g,':"$1"$2\n');
+ 	   string = string.replace(/^"/,"");
+ 	   string = string.replace(/"$/,"");
+ 	   string = string.replace(/(^ *)'/g,'$1"');
+ 	   string = string.replace(/(:\{) *'(.*)' *(,|\}|\])/g,'$1"$2"$3');
+ 	   string = string.replace(/(:\[) *'(.*)' *(,|\}|\])/g,'$1"$2"$3');
+ 	   string = string.replace(/(:) *'(.*)' *(,|\}|\])/g,'$1"$2"$3');
   	var myjson = JSON.parse(string);
+	console.log(myjson);
   	console.log("Playlist:");
   	for(let x in myjson.items){
 		video[x] = myjson.items[x].url;
 		console.log("fichier:%s [id = %s]", myjson.items[x].title, myjson.items[x].id);
 	 }
 	 telecharger_video(video[0],video, 0, video.length-1);
-  }catch{
-	console.log("Erreur: id = %s", id);
-	process.exit(255);
-  }
+  //}catch{
+	//console.log("Erreur: id = %s", id);
+	//process.exit(255);
+  //}
 }
 if(args.quality){
 	quality_opt = args.quality;
