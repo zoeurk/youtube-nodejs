@@ -65,15 +65,17 @@ const main = async function(url){
   	saveString = util.inspect(search, { depth: Infinity });
   	var meta = saveString;
 	meta = meta.replace(/: *(\[|\{)/g,':\n$1\n');
+	meta = meta.replace(/ *(\}|\])([,\n])/g,'\n$1\n$2');
+	meta = meta.replace(/(\[|\{|,)[\n\t ]*(\{|\[)/g, '$1\n$2\n');
 	meta = meta.replace(/(.*):(.*), *(.*):(.*)/g, "$1:$2,\n$3:$4");
    	meta = meta.replace(/\n */g, '\n');
 	meta = meta.replace(/\n[ \t]*\n/g, "\n");
-	meta = meta.replace(/\n([^\{\[\]\}:]*):/g, '\n"$1":');
+	meta = meta.replace(/\n([^\,\{\[\]\}:]*):/g, '\n"$1":');
 	meta = meta.replace(/^/g, "\n");
 	meta = meta.replace(/("[^:"]*":) */g, '$1\n');
 	meta = meta.replace(/\n'/g,'\n"');
 	meta = meta.replace(/'(,|\n|\]|\})/g, '"$1');
-  	var myjson = JSON.parse(meta);
+	var myjson = JSON.parse(meta);
   	console.log("Playlist:");
   	for(let x in myjson.items){
 		video[x] = myjson.items[x].url;
